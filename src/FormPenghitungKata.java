@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -58,6 +59,7 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         btnHitungRealtime = new javax.swing.JButton();
         btnSimpan = new javax.swing.JButton();
         btnReset = new javax.swing.JButton();
+        btnRestart = new javax.swing.JButton();
         panelHasil = new javax.swing.JPanel();
         lblKata = new javax.swing.JLabel();
         lblJumlahKata = new javax.swing.JLabel();
@@ -78,7 +80,7 @@ public class FormPenghitungKata extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplikasi Penghitung Kata");
-        setPreferredSize(new java.awt.Dimension(800, 700));
+        setPreferredSize(new java.awt.Dimension(1000, 700));
 
         panelHeader.setBackground(new java.awt.Color(30, 64, 175));
         panelHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 15));
@@ -168,6 +170,18 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         });
         panelButtons.add(btnReset);
 
+        btnRestart.setBackground(new java.awt.Color(249, 115, 22));
+        btnRestart.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnRestart.setForeground(new java.awt.Color(255, 255, 255));
+        btnRestart.setText("Restart Aplikasi");
+        btnRestart.setPreferredSize(new java.awt.Dimension(180, 40));
+        btnRestart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRestartActionPerformed(evt);
+            }
+        });
+        panelButtons.add(btnRestart);
+
         panelMain.add(panelButtons);
 
         panelHasil.setBackground(new java.awt.Color(239, 246, 255));
@@ -178,7 +192,7 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         lblKata.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblKata.setForeground(new java.awt.Color(0, 0, 0));
         lblKata.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lblKata.setText("Jumlah Kata");
+        lblKata.setText("Jumlah Kata:");
         panelHasil.add(lblKata);
 
         lblJumlahKata.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -252,7 +266,7 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         txtCariKata.setColumns(40);
         panelCariInput.add(txtCariKata);
 
-        btnCari.setBackground(new java.awt.Color(255, 153, 0));
+        btnCari.setBackground(new java.awt.Color(34, 197, 94));
         btnCari.setForeground(new java.awt.Color(255, 255, 255));
         btnCari.setText("Cari");
         btnCari.addActionListener(new java.awt.event.ActionListener() {
@@ -299,12 +313,16 @@ public class FormPenghitungKata extends javax.swing.JFrame {
                 }
             });
             realtimeAktif = true;
-            btnHitungRealtime.setText("Nonaktifkan Hitung Real-time");
+            btnHitungRealtime.setText("Nonaktifkan Real-time");
             btnHitung.setEnabled(false);
+            JOptionPane.showMessageDialog(this, 
+                "Mode Real-time diaktifkan!\n" +
+                "Perhitungan akan otomatis saat Anda mengetik.\n\n" +
+                "Untuk menonaktifkan, klik tombol 'Restart Aplikasi'.",
+                "Info", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            // Nonaktifkan realtime (perlu restart aplikasi atau implementasi lebih kompleks)
-            javax.swing.JOptionPane.showMessageDialog(this, 
-                "Restart aplikasi untuk menonaktifkan mode real-time");
+            // Panggil method restart
+            restartAplikasi();
         }
     }//GEN-LAST:event_btnHitungRealtimeActionPerformed
 
@@ -372,6 +390,10 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         lblJumlahParagraf.setText("0");
         lblHasilPencarian.setText("");
     }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRestartActionPerformed
+        restartAplikasi();
+    }//GEN-LAST:event_btnRestartActionPerformed
     
     private void hitungSemua() {
         String teks = txtAreaInput.getText();
@@ -387,6 +409,24 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         lblJumlahKarakterTanpaSpasi.setText(String.valueOf(jumlahKarakterTanpaSpasi));
         lblJumlahKalimat.setText(String.valueOf(jumlahKalimat));
         lblJumlahParagraf.setText(String.valueOf(jumlahParagraf));
+    }
+    
+    private void restartAplikasi() {
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Apakah Anda yakin ingin me-restart aplikasi?\n" +
+            "Semua data yang belum disimpan akan hilang.",
+            "Konfirmasi Restart",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.WARNING_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            this.dispose();
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new FormPenghitungKata().setVisible(true);
+                }
+            });
+        }
     }
     
     /**
@@ -429,6 +469,7 @@ public class FormPenghitungKata extends javax.swing.JFrame {
     private javax.swing.JButton btnHitung;
     private javax.swing.JButton btnHitungRealtime;
     private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnRestart;
     private javax.swing.JButton btnSimpan;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblHasilPencarian;
