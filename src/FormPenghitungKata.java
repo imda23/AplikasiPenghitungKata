@@ -26,21 +26,218 @@ public class FormPenghitungKata extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelHeader = new javax.swing.JPanel();
+        lblJudul = new javax.swing.JLabel();
+        panelMain = new javax.swing.JPanel();
+        panelInput = new javax.swing.JPanel();
+        lblMasukkanTeks = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAreaInput = new javax.swing.JTextArea();
+        panelButtons = new javax.swing.JPanel();
+        btnHitung = new javax.swing.JButton();
+        btnHitungRealtime = new javax.swing.JButton();
+        btnSimpan = new javax.swing.JButton();
+        btnReset = new javax.swing.JButton();
+        panelHasil = new javax.swing.JPanel();
+        lblKata = new javax.swing.JLabel();
+        lblJumlahKata = new javax.swing.JLabel();
+        lblKarakterDengan = new javax.swing.JLabel();
+        lblJumlahKarakter = new javax.swing.JLabel();
+        lblKarakterTanpa = new javax.swing.JLabel();
+        lblJumlahKarakterTanpaSpasi = new javax.swing.JLabel();
+        lblKalimat = new javax.swing.JLabel();
+        lblJumlahKalimat = new javax.swing.JLabel();
+        lblParagraf = new javax.swing.JLabel();
+        lblJumlahParagraf = new javax.swing.JLabel();
+        panelPencarian = new javax.swing.JPanel();
+        panelCariInput = new javax.swing.JPanel();
+        lblPencarianKata = new javax.swing.JLabel();
+        txtCariKata = new javax.swing.JTextField();
+        btnCari = new javax.swing.JButton();
+        lblHasilPencarian = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Aplikasi Penghitung Kata");
+        setPreferredSize(new java.awt.Dimension(800, 700));
+
+        panelHeader.setBackground(new java.awt.Color(30, 64, 175));
+        panelHeader.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 15));
+
+        lblJudul.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblJudul.setForeground(new java.awt.Color(255, 255, 255));
+        lblJudul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblJudul.setText("APLIKASI PENGHITUNG KATA");
+        panelHeader.add(lblJudul);
+
+        getContentPane().add(panelHeader, java.awt.BorderLayout.NORTH);
+
+        panelMain.setBackground(new java.awt.Color(245, 245, 245));
+        panelMain.setLayout(new javax.swing.BoxLayout(panelMain, javax.swing.BoxLayout.Y_AXIS));
+
+        panelInput.setBackground(new java.awt.Color(245, 245, 245));
+        panelInput.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Input Teks", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(51, 51, 51)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10))); // NOI18N
+        panelInput.setForeground(new java.awt.Color(255, 255, 255));
+        panelInput.setPreferredSize(new java.awt.Dimension(100, 280));
+        panelInput.setLayout(new java.awt.BorderLayout());
+
+        lblMasukkanTeks.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblMasukkanTeks.setForeground(new java.awt.Color(102, 102, 102));
+        lblMasukkanTeks.setText("Masukkan teks di bawah ini");
+        lblMasukkanTeks.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 10, 5, 10));
+        panelInput.add(lblMasukkanTeks, java.awt.BorderLayout.NORTH);
+
+        txtAreaInput.setColumns(50);
+        txtAreaInput.setFont(new java.awt.Font("Monospaced", 0, 12)); // NOI18N
+        txtAreaInput.setLineWrap(true);
+        txtAreaInput.setRows(10);
+        txtAreaInput.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtAreaInput);
+
+        panelInput.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        panelMain.add(panelInput);
+
+        panelButtons.setBackground(new java.awt.Color(245, 245, 245));
+        panelButtons.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+
+        btnHitung.setBackground(new java.awt.Color(37, 99, 235));
+        btnHitung.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHitung.setForeground(new java.awt.Color(255, 255, 255));
+        btnHitung.setText("Hitung");
+        btnHitung.setPreferredSize(new java.awt.Dimension(180, 40));
+        btnHitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungActionPerformed(evt);
+            }
+        });
+        panelButtons.add(btnHitung);
+
+        btnHitungRealtime.setBackground(new java.awt.Color(34, 197, 94));
+        btnHitungRealtime.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHitungRealtime.setForeground(new java.awt.Color(255, 255, 255));
+        btnHitungRealtime.setText("Hitung Real-time");
+        btnHitungRealtime.setPreferredSize(new java.awt.Dimension(180, 40));
+        panelButtons.add(btnHitungRealtime);
+
+        btnSimpan.setBackground(new java.awt.Color(147, 51, 234));
+        btnSimpan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
+        btnSimpan.setText("Simpan");
+        btnSimpan.setPreferredSize(new java.awt.Dimension(180, 40));
+        panelButtons.add(btnSimpan);
+
+        btnReset.setBackground(new java.awt.Color(239, 68, 68));
+        btnReset.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnReset.setForeground(new java.awt.Color(255, 255, 255));
+        btnReset.setText("Reset");
+        btnReset.setPreferredSize(new java.awt.Dimension(180, 40));
+        panelButtons.add(btnReset);
+
+        panelMain.add(panelButtons);
+
+        panelHasil.setBackground(new java.awt.Color(239, 246, 255));
+        panelHasil.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Hasil Perhitungan", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(51, 51, 51)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        panelHasil.setPreferredSize(new java.awt.Dimension(100, 200));
+        panelHasil.setLayout(new java.awt.GridLayout(5, 2, 10, 10));
+
+        lblKata.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblKata.setForeground(new java.awt.Color(0, 0, 0));
+        lblKata.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblKata.setText("Jumlah Kata");
+        panelHasil.add(lblKata);
+
+        lblJumlahKata.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblJumlahKata.setForeground(new java.awt.Color(0, 0, 102));
+        lblJumlahKata.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJumlahKata.setText("0");
+        panelHasil.add(lblJumlahKata);
+
+        lblKarakterDengan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblKarakterDengan.setForeground(new java.awt.Color(0, 0, 0));
+        lblKarakterDengan.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblKarakterDengan.setText("Jumlah Karakter (dengan spasi):");
+        panelHasil.add(lblKarakterDengan);
+
+        lblJumlahKarakter.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblJumlahKarakter.setForeground(new java.awt.Color(102, 0, 102));
+        lblJumlahKarakter.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJumlahKarakter.setText("0");
+        panelHasil.add(lblJumlahKarakter);
+
+        lblKarakterTanpa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblKarakterTanpa.setForeground(new java.awt.Color(0, 0, 0));
+        lblKarakterTanpa.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblKarakterTanpa.setText("Jumlah Karakter (tanpa spasi):");
+        panelHasil.add(lblKarakterTanpa);
+
+        lblJumlahKarakterTanpaSpasi.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblJumlahKarakterTanpaSpasi.setForeground(new java.awt.Color(102, 0, 0));
+        lblJumlahKarakterTanpaSpasi.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJumlahKarakterTanpaSpasi.setText("0");
+        panelHasil.add(lblJumlahKarakterTanpaSpasi);
+
+        lblKalimat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblKalimat.setForeground(new java.awt.Color(0, 0, 0));
+        lblKalimat.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblKalimat.setText("Jumlah Kalimat:");
+        panelHasil.add(lblKalimat);
+
+        lblJumlahKalimat.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblJumlahKalimat.setForeground(new java.awt.Color(0, 102, 0));
+        lblJumlahKalimat.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJumlahKalimat.setText("0");
+        panelHasil.add(lblJumlahKalimat);
+
+        lblParagraf.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblParagraf.setForeground(new java.awt.Color(0, 0, 0));
+        lblParagraf.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lblParagraf.setText("Jumlah Paragraf:");
+        panelHasil.add(lblParagraf);
+
+        lblJumlahParagraf.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblJumlahParagraf.setForeground(new java.awt.Color(255, 102, 0));
+        lblJumlahParagraf.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblJumlahParagraf.setText("0");
+        panelHasil.add(lblJumlahParagraf);
+
+        panelMain.add(panelHasil);
+
+        panelPencarian.setBackground(new java.awt.Color(240, 253, 244));
+        panelPencarian.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createTitledBorder(null, "Pencarian Kata", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(51, 51, 51)), javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15))); // NOI18N
+        panelPencarian.setPreferredSize(new java.awt.Dimension(100, 120));
+        panelPencarian.setLayout(new java.awt.BorderLayout());
+
+        panelCariInput.setBackground(new java.awt.Color(239, 246, 255));
+        panelCariInput.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
+
+        lblPencarianKata.setForeground(new java.awt.Color(102, 102, 102));
+        lblPencarianKata.setText("Cari Kata");
+        panelCariInput.add(lblPencarianKata);
+
+        txtCariKata.setColumns(40);
+        panelCariInput.add(txtCariKata);
+
+        btnCari.setBackground(new java.awt.Color(255, 153, 0));
+        btnCari.setForeground(new java.awt.Color(255, 255, 255));
+        btnCari.setText("Cari");
+        panelCariInput.add(btnCari);
+
+        panelPencarian.add(panelCariInput, java.awt.BorderLayout.NORTH);
+
+        lblHasilPencarian.setForeground(new java.awt.Color(0, 102, 0));
+        lblHasilPencarian.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        panelPencarian.add(lblHasilPencarian, java.awt.BorderLayout.CENTER);
+
+        panelMain.add(panelPencarian);
+
+        getContentPane().add(panelMain, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnHitungActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +275,34 @@ public class FormPenghitungKata extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCari;
+    private javax.swing.JButton btnHitung;
+    private javax.swing.JButton btnHitungRealtime;
+    private javax.swing.JButton btnReset;
+    private javax.swing.JButton btnSimpan;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblHasilPencarian;
+    private javax.swing.JLabel lblJudul;
+    private javax.swing.JLabel lblJumlahKalimat;
+    private javax.swing.JLabel lblJumlahKarakter;
+    private javax.swing.JLabel lblJumlahKarakterTanpaSpasi;
+    private javax.swing.JLabel lblJumlahKata;
+    private javax.swing.JLabel lblJumlahParagraf;
+    private javax.swing.JLabel lblKalimat;
+    private javax.swing.JLabel lblKarakterDengan;
+    private javax.swing.JLabel lblKarakterTanpa;
+    private javax.swing.JLabel lblKata;
+    private javax.swing.JLabel lblMasukkanTeks;
+    private javax.swing.JLabel lblParagraf;
+    private javax.swing.JLabel lblPencarianKata;
+    private javax.swing.JPanel panelButtons;
+    private javax.swing.JPanel panelCariInput;
+    private javax.swing.JPanel panelHasil;
+    private javax.swing.JPanel panelHeader;
+    private javax.swing.JPanel panelInput;
+    private javax.swing.JPanel panelMain;
+    private javax.swing.JPanel panelPencarian;
+    private javax.swing.JTextArea txtAreaInput;
+    private javax.swing.JTextField txtCariKata;
     // End of variables declaration//GEN-END:variables
 }
