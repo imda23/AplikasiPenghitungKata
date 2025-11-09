@@ -4,17 +4,37 @@
  * and open the template in the editor.
  */
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.swing.JFileChooser;
+
 /**
  *
- * @author USER
+ * @author Dimas
  */
 public class FormPenghitungKata extends javax.swing.JFrame {
+    
+    private PenghitungKata penghitung;
+    private boolean realtimeAktif = false;
 
     /**
      * Creates new form FormPenghitungKata
      */
     public FormPenghitungKata() {
         initComponents();
+        penghitung = new PenghitungKata();
+        setLocationRelativeTo(null); // Center window
+
+        // Set nilai awal label
+        lblJumlahKata.setText("0");
+        lblJumlahKarakter.setText("0");
+        lblJumlahKarakterTanpaSpasi.setText("0");
+        lblJumlahKalimat.setText("0");
+        lblJumlahParagraf.setText("0");
+        lblHasilPencarian.setText("");
     }
 
     /**
@@ -117,6 +137,11 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         btnHitungRealtime.setForeground(new java.awt.Color(255, 255, 255));
         btnHitungRealtime.setText("Hitung Real-time");
         btnHitungRealtime.setPreferredSize(new java.awt.Dimension(180, 40));
+        btnHitungRealtime.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHitungRealtimeActionPerformed(evt);
+            }
+        });
         panelButtons.add(btnHitungRealtime);
 
         btnSimpan.setBackground(new java.awt.Color(147, 51, 234));
@@ -124,6 +149,11 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         btnSimpan.setForeground(new java.awt.Color(255, 255, 255));
         btnSimpan.setText("Simpan");
         btnSimpan.setPreferredSize(new java.awt.Dimension(180, 40));
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
         panelButtons.add(btnSimpan);
 
         btnReset.setBackground(new java.awt.Color(239, 68, 68));
@@ -131,6 +161,11 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         btnReset.setForeground(new java.awt.Color(255, 255, 255));
         btnReset.setText("Reset");
         btnReset.setPreferredSize(new java.awt.Dimension(180, 40));
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
         panelButtons.add(btnReset);
 
         panelMain.add(panelButtons);
@@ -220,6 +255,11 @@ public class FormPenghitungKata extends javax.swing.JFrame {
         btnCari.setBackground(new java.awt.Color(255, 153, 0));
         btnCari.setForeground(new java.awt.Color(255, 255, 255));
         btnCari.setText("Cari");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCariActionPerformed(evt);
+            }
+        });
         panelCariInput.add(btnCari);
 
         panelPencarian.add(panelCariInput, java.awt.BorderLayout.NORTH);
@@ -236,9 +276,119 @@ public class FormPenghitungKata extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungActionPerformed
-        // TODO add your handling code here:
+        hitungSemua();
     }//GEN-LAST:event_btnHitungActionPerformed
 
+    private void btnHitungRealtimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHitungRealtimeActionPerformed
+        if (!realtimeAktif) {
+            // Aktifkan realtime
+            txtAreaInput.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    hitungSemua();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    hitungSemua();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    hitungSemua();
+                }
+            });
+            realtimeAktif = true;
+            btnHitungRealtime.setText("Nonaktifkan Hitung Real-time");
+            btnHitung.setEnabled(false);
+        } else {
+            // Nonaktifkan realtime (perlu restart aplikasi atau implementasi lebih kompleks)
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Restart aplikasi untuk menonaktifkan mode real-time");
+        }
+    }//GEN-LAST:event_btnHitungRealtimeActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        String teks = txtAreaInput.getText();
+        String kataDicari = txtCariKata.getText();
+
+        if (kataDicari.trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Masukkan kata yang ingin dicari!");
+            return;
+        }
+
+        int jumlahDitemukan = penghitung.cariKata(teks, kataDicari);
+        lblHasilPencarian.setText("Kata \"" + kataDicari + "\" ditemukan: " 
+            + jumlahDitemukan + " kali");
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Simpan Hasil Perhitungan");
+
+        int userSelection = fileChooser.showSaveDialog(this);
+
+        if (userSelection == JFileChooser.APPROVE_OPTION) {
+            try {
+                String filePath = fileChooser.getSelectedFile().getAbsolutePath();
+                if (!filePath.endsWith(".txt")) {
+                    filePath += ".txt";
+                }
+
+                PrintWriter writer = new PrintWriter(new FileWriter(filePath));
+
+                writer.println("=== HASIL PERHITUNGAN TEKS ===");
+                writer.println();
+                writer.println("TEKS:");
+                writer.println(txtAreaInput.getText());
+                writer.println();
+                writer.println("=== STATISTIK ===");
+                writer.println("Jumlah Kata: " + lblJumlahKata.getText());
+                writer.println("Jumlah Karakter (dengan spasi): " + lblJumlahKarakter.getText());
+                writer.println("Jumlah Karakter (tanpa spasi): " + lblJumlahKarakterTanpaSpasi.getText());
+                writer.println("Jumlah Kalimat: " + lblJumlahKalimat.getText());
+                writer.println("Jumlah Paragraf: " + lblJumlahParagraf.getText());
+
+                writer.close();
+
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "File berhasil disimpan!");
+
+            } catch (IOException e) {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Error saat menyimpan file: " + e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        txtAreaInput.setText("");
+        txtCariKata.setText("");
+        lblJumlahKata.setText("0");
+        lblJumlahKarakter.setText("0");
+        lblJumlahKarakterTanpaSpasi.setText("0");
+        lblJumlahKalimat.setText("0");
+        lblJumlahParagraf.setText("0");
+        lblHasilPencarian.setText("");
+    }//GEN-LAST:event_btnResetActionPerformed
+    
+    private void hitungSemua() {
+        String teks = txtAreaInput.getText();
+
+        int jumlahKata = penghitung.hitungKata(teks);
+        int jumlahKarakter = penghitung.hitungKarakterDenganSpasi(teks);
+        int jumlahKarakterTanpaSpasi = penghitung.hitungKarakterTanpaSpasi(teks);
+        int jumlahKalimat = penghitung.hitungKalimat(teks);
+        int jumlahParagraf = penghitung.hitungParagraf(teks);
+
+        lblJumlahKata.setText(String.valueOf(jumlahKata));
+        lblJumlahKarakter.setText(String.valueOf(jumlahKarakter));
+        lblJumlahKarakterTanpaSpasi.setText(String.valueOf(jumlahKarakterTanpaSpasi));
+        lblJumlahKalimat.setText(String.valueOf(jumlahKalimat));
+        lblJumlahParagraf.setText(String.valueOf(jumlahParagraf));
+    }
+    
     /**
      * @param args the command line arguments
      */
